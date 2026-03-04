@@ -32,38 +32,17 @@ services:
   backend:
     build: ./backend
     ports:
-      - "${BACKEND_PORT:-3001}:3001"
+      - "${BACKEND_PORT:-8000}:8000"
     environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - POSTGRES_USER=${POSTGRES_USER:-gamecenter}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-gamecenterpass}
-      - POSTGRES_DB=${POSTGRES_DB:-gamecenterdb}
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-gamecenter}:${POSTGRES_PASSWORD:-gamecenterpass}@db:5432/${POSTGRES_DB:-gamecenterdb}
+      - REDIS_URL=redis://redis:6379/0
       - JWT_SECRET=${JWT_SECRET:-change_this_in_production}
-      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-change_this_refresh_secret}
-      - JWT_EXPIRATION=${JWT_EXPIRATION:-15m}
-      - JWT_REFRESH_EXPIRATION=${JWT_REFRESH_EXPIRATION:-7d}
-      - BACKEND_PORT=3001
-      - FRONTEND_URL=http://localhost:${FRONTEND_PORT:-3000}
+      - CORS_ORIGINS=http://localhost:${FRONTEND_PORT:-3000}
+      - BACKEND_PORT=8000
     depends_on:
       db:
         condition: service_healthy
       redis:
-        condition: service_healthy
-
-  analytics:
-    build: ./analytics
-    ports:
-      - "${ANALYTICS_PORT:-8000}:8000"
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-gamecenter}:${POSTGRES_PASSWORD:-gamecenterpass}@db:5432/${POSTGRES_DB:-gamecenterdb}
-      - JWT_SECRET=${JWT_SECRET:-change_this_in_production}
-      - CORS_ORIGINS=http://localhost:${FRONTEND_PORT:-3000}
-      - ANALYTICS_PORT=8000
-    depends_on:
-      db:
         condition: service_healthy
 
   frontend:
@@ -71,9 +50,8 @@ services:
     ports:
       - "${FRONTEND_PORT:-3000}:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:${BACKEND_PORT:-3001}
-      - NEXT_PUBLIC_WS_URL=http://localhost:${BACKEND_PORT:-3001}
-      - NEXT_PUBLIC_ANALYTICS_URL=http://localhost:${ANALYTICS_PORT:-8000}
+      - NEXT_PUBLIC_API_URL=http://localhost:${BACKEND_PORT:-8000}
+      - NEXT_PUBLIC_WS_URL=http://localhost:${BACKEND_PORT:-8000}
     depends_on:
       - backend
 

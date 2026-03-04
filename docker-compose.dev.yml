@@ -1,38 +1,14 @@
 version: '3.8'
 
 services:
-  db:
-    ports:
-      - "${DB_PORT:-5432}:5432"
-
-  redis:
-    ports:
-      - "${REDIS_PORT:-6379}:6379"
-
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    command: npm run start:dev
-    volumes:
-      - ./backend/src:/app/src
-      - ./backend/nest-cli.json:/app/nest-cli.json
-      - ./backend/tsconfig.json:/app/tsconfig.json
-    environment:
-      - NODE_ENV=development
-
-  analytics:
-    build:
-      context: ./analytics
-      dockerfile: Dockerfile
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     volumes:
-      - ./analytics/app:/app/app
+      - ./backend/app:/app/app
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-gamecenter}:${POSTGRES_PASSWORD:-gamecenterpass}@db:5432/${POSTGRES_DB:-gamecenterdb}
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
     command: npm run dev
     volumes:
       - ./frontend/src:/app/src
