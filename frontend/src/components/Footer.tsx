@@ -7,19 +7,16 @@ const footerLinks: Record<string, { label: string; href: string; external?: bool
     { label: "Features", href: "#features" },
     { label: "How It Works", href: "#how-it-works" },
     { label: "Pricing", href: "#pricing" },
+    { label: "Tech Stack", href: "#tech-stack" },
     { label: "Live Demo", href: "https://pslounghe.web.app", external: true },
   ],
   Support: [
-    { label: "Documentation", href: "#" },
     { label: "Contact Us", href: "#contact" },
-    { label: "FAQ", href: "#" },
-    { label: "Community", href: "#" },
+    { label: "Testimonials", href: "#testimonials" },
   ],
   Company: [
-    { label: "About", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Careers", href: "#" },
     { label: "Privacy Policy", href: "#" },
+    { label: "Terms of Service", href: "#" },
   ],
 };
 

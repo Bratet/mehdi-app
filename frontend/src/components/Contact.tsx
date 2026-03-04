@@ -96,7 +96,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="text-sm font-semibold text-white mb-0.5">Email</div>
-                    <div className="text-sm text-slate-400">support@slouge.app</div>
+                    <div className="text-sm text-slate-400">support@slounge.app</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

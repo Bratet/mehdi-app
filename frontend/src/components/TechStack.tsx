@@ -59,7 +59,7 @@ const techs = [
 
 export default function TechStack() {
   return (
-    <section className="relative py-24 lg:py-28 overflow-hidden">
+    <section id="tech-stack" className="relative py-24 lg:py-28 overflow-hidden">
       <div className="absolute inset-0 bg-dark-800" />
       <div className="absolute inset-0 bg-grid opacity-30" />
       <div className="absolute top-0 left-0 right-0 h-px section-divider" />
