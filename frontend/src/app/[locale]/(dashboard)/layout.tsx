@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 import { useAuthStore } from "@/stores/auth-store";
@@ -14,6 +15,7 @@ export default function DashboardLayout({
 }) {
   const { user, isLoading, fetchMe } = useAuthStore();
   const router = useRouter();
+  const locale = useLocale();
 
   useEffect(() => {
     fetchMe();
@@ -21,9 +23,9 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push("/en/login");
+      router.push(`/${locale}/login`);
     }
-  }, [isLoading, user, router]);
+  }, [isLoading, user, router, locale]);
 
   if (isLoading) {
     return (

@@ -1,7 +1,9 @@
 "use client";
 
-import { Bell, Moon, Sun, LogOut, User } from "lucide-react";
+import { Bell, Moon, Sun, LogOut, User, Globe } from "lucide-react";
 import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -12,13 +14,27 @@ import { Badge } from "@/components/ui/badge";
 import { useAuthStore } from "@/stores/auth-store";
 import { MobileNav } from "./MobileNav";
 
+const languages = [
+  { code: "en", label: "English" },
+  { code: "fr", label: "Fran\u00e7ais" },
+  { code: "ar", label: "\u0627\u0644\u0639\u0631\u0628\u064a\u0629" },
+] as const;
+
 export function Topbar() {
   const { theme, setTheme } = useTheme();
   const { user, logout } = useAuthStore();
+  const pathname = usePathname();
+  const router = useRouter();
+  const locale = useLocale();
 
   const initials = user
     ? `${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`
     : "?";
+
+  const switchLocale = (newLocale: string) => {
+    const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
+    router.push(`/${newLocale}${pathWithoutLocale === "/" ? "" : pathWithoutLocale}`);
+  };
 
   return (
     <header className="flex items-center justify-between h-16 px-4 border-b bg-card">
@@ -49,6 +65,25 @@ export function Topbar() {
           <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
         </Button>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Globe className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {languages.map((lang) => (
+              <DropdownMenuItem
+                key={lang.code}
+                onClick={() => switchLocale(lang.code)}
+                className={locale === lang.code ? "bg-accent" : ""}
+              >
+                {lang.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
