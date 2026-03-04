@@ -15,10 +15,10 @@ const steps = [
     title: "Install the App",
     description:
       "Download S Lounge on your preferred platform — Android, iOS, Windows, macOS, Linux, or use it directly in your web browser. No server setup required.",
-    color: "purple",
     iconColor: "text-purple-400",
     iconBg: "bg-purple-500/15",
     dotColor: "bg-purple-500",
+    hoverColor: "group-hover:text-purple-400",
   },
   {
     number: "02",
@@ -26,10 +26,10 @@ const steps = [
     title: "Configure Your Space",
     description:
       "Add your devices (PlayStation, PC, billiard tables, etc.), set pricing per hour for single and multiplayer modes, and add your café products.",
-    color: "cyan",
     iconColor: "text-cyan-400",
     iconBg: "bg-cyan-500/15",
     dotColor: "bg-cyan-500",
+    hoverColor: "group-hover:text-cyan-400",
   },
   {
     number: "03",
@@ -37,10 +37,10 @@ const steps = [
     title: "Start Serving Customers",
     description:
       "Open sessions with one tap, track timers in real time, attach drinks and snacks, handle payments, and generate invoices instantly.",
-    color: "green",
     iconColor: "text-green-400",
     iconBg: "bg-green-500/15",
     dotColor: "bg-green-500",
+    hoverColor: "group-hover:text-green-400",
   },
   {
     number: "04",
@@ -48,10 +48,10 @@ const steps = [
     title: "Grow With Analytics",
     description:
       "Review daily, weekly and monthly revenue. Identify your best products and busiest devices. Track expenses and monitor net profit automatically.",
-    color: "amber",
     iconColor: "text-amber-400",
     iconBg: "bg-amber-500/15",
     dotColor: "bg-amber-500",
+    hoverColor: "group-hover:text-amber-400",
   },
 ];
 
@@ -119,7 +119,7 @@ export default function HowItWorks() {
                   <div className="font-display font-bold text-4xl text-white/10 mb-3">
                     {step.number}
                   </div>
-                  <h3 className={`font-bold text-xl text-white mb-3 group-hover:${step.iconColor} transition-colors duration-300`}>
+                  <h3 className={`font-bold text-xl text-white mb-3 ${step.hoverColor} transition-colors duration-300`}>
                     {step.title}
                   </h3>
                   <p className="text-sm text-slate-400 leading-relaxed max-w-xs mx-auto">
