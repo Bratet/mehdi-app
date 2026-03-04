@@ -2,7 +2,7 @@
 
 import { Gamepad2, Github, Twitter, MessageCircle, ExternalLink } from "lucide-react";
 
-const footerLinks = {
+const footerLinks: Record<string, { label: string; href: string; external?: boolean }[]> = {
   Product: [
     { label: "Features", href: "#features" },
     { label: "How It Works", href: "#how-it-works" },
