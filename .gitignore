@@ -45,6 +45,10 @@ coverage/
 build/
 *.tsbuildinfo
 
+# SQLite
+*.db
+data/
+
 # Misc
 *.bak
 *.tmp
